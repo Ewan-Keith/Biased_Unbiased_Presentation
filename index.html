@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>When Biased Statistical Models Beat Unbiased</title>
+  <meta charset="utf-8">
+  <meta name="description" content="When Biased Statistical Models Beat Unbiased">
+  <meta name="author" content="Ewan Keith">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>When Biased Statistical Models Beat Unbiased</h1>
+    <h2></h2>
+    <p>Ewan Keith<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <article data-timings="">
+    <style type='text/css'>
+img {
+    max-height: 560px;
+    max-width: 964px;
+}
+</style>
+
+<h2>When do Biased Models Beat Unbiased?</h2>
+
+<ul class = "build incremental">
+<li>Always</li>
+<li>ish...</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>What does &#39;Beat&#39; mean here?</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>more accurate out of sample prediction.</li>
+<li>fairly uncontroversial measure of performance.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>What does Bias mean in this context?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>\[\operatorname{Bias}_\theta[\,\hat\theta\,] = \operatorname{E}_\theta[\,\hat{\theta}\,]-\theta\]</p>
+
+<ul class = "build incremental">
+<li>Technical statistical definition.</li>
+<li><em>Not</em> the colloquial definition.</li>
+<li>Fairly abstract, but underlies a lot of commonly used estimates/models</li>
+<li>Sample mean, Sample Median, (generalised) linear regression, ANOVA, and more hinge on un-biased estimates.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Why would we bias our estimates?</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Generally to help deal with excess variance in our estimates.</li>
+<li>Why not...</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Regularisation</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Very large number of predictor variables can cause difficulties.</li>
+<li>Multiple Comparisons risk unreliable hypothesis tests</li>
+<li>Complete failure in P &gt; N cases</li>
+<li>Often increases the risks of co-linearity</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Regularisation</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Regularisation simply involves adding some penalty on model complexity.</li>
+<li>This can be achieved in various ways, below is an example of the function used to fit a LASSO regression. An upper limit is set on all regression coeficients, limiting complexity.</li>
+</ul>
+
+<p>\[\min_{ \beta_0, \beta } \left\{ \frac{1}{N} \sum_{i=1}^N (y_i - \beta_0 - x_i^T \beta)^2 \right\} \text{ subject to } \sum_{j=1}^p |\beta_j| \leq t.\]</p>
+
+<ul>
+<li>This shrinks (biases) estimates towards zero, how much bias is introduced is decided using cross-validation.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Regularisation</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>What&#39;s this look like?</li>
+</ul>
+
+<p><img src="assets/fig/unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2"  /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Regularisation is very useful</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Efficient variable selection in high dimensions</li>
+<li>Enables treatment of poorly posed problems</li>
+<li>As a general rule, provides better fit</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>When to use regularisation?</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>When there are a large number of predictor variables to be modelled.</li>
+<li>When the problem is poorly posed; due to multicolinearity, more variables than observations, hard to interpret output, etc.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Hierarchical Modelling</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="pooled%20sleep.png" alt="pooled"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Hierarchical Modelling</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="sleep%20facet.png" alt="facet"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Hierarchical Modelling</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Halfway between complete pooling and no-pooling.</li>
+<li>Weighted average between the two.</li>
+<li>Results in biased, ‘half-way’ estimates.</li>
+<li>Typically provides better prediction of future data than unbiased estimates.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Hierarchical Modelling</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="batting.png" alt="batting"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>When to use Hierarchical Modelling</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>When there are a number of groups you wish to measure the same property over, but you&#39;ve a limited sample size.</li>
+<li>Particularly when groups are very smallin size.</li>
+<li>When you have multi-levelled data, e.g. pupils, within classes, within schools, within counties, within...</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <article data-timings="">
+    <p><img src="mrp.png" alt="mrp"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>How to use regularisation and hierarchical modelling</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>lots of software now includes these tools.</li>
+<li>SPSS, SAS, STATA, Pyton.</li>
+<li>Personally recommend R.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='NA'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='What does &#39;Beat&#39; mean here?'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='What does Bias mean in this context?'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Why would we bias our estimates?'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Regularisation'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Regularisation'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Regularisation'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Regularisation is very useful'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='When to use regularisation?'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Hierarchical Modelling'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Hierarchical Modelling'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Hierarchical Modelling'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Hierarchical Modelling'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='When to use Hierarchical Modelling'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='NA'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='How to use regularisation and hierarchical modelling'>
+         16
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
